@@ -1,4 +1,4 @@
-.rightBar {
+.rightbar {
     flex: 3.5;
 }
 
@@ -41,9 +41,8 @@
 .rightbarTitle {
     font-size: 18px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
-
 
 .rightbarInfo {
     margin-bottom: 30px;

@@ -1,12 +1,17 @@
 import "./topBar.css";
 import { Search, Person, Chat, Notifications } from "@mui/icons-material";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function TopBar() {
+  const { user } = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
   return (
     <div className="topBarContainer">
       <div className="topBarLeft">
-        <Link to="/" style={{textDecoration:"none"}}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <span className="logo">SamSocial</span>
         </Link>
       </div>
@@ -43,8 +48,16 @@ export default function TopBar() {
             <span className="topBarIconBadge">1</span>
           </div>
         </div>
-        <Link to="/profile/Id" style={{textDecoration:"none"}}>
-          <img src="/assets/person/1.jpeg" alt="" className="topBarImg" />
+        <Link to={`profile/${user.username}`} style={{ textDecoration: "none" }}>
+          <img
+            src={
+              user.profilePicture
+                ? PF + user.profilePicture
+                : PF + "person/noAvatar.png"
+            }
+            alt=""
+            className="topBarImg"
+          />
         </Link>
       </div>
     </div>

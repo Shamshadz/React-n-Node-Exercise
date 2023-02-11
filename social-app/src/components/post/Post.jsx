@@ -41,7 +41,10 @@ export default function Post({ post }) {
           <div className="postTopLeft">
             <Link to="profile/id">
               <img
-                src={user.profilePicture ? PF + user.profilePicture :`${PF}person/noAvatar.png`}
+                src={user.profilePicture
+                  ? PF + user.profilePicture
+                  : PF + "person/noAvatar.png"
+                }
                 alt=""
                 className="postProfileImg"
               />
@@ -60,6 +63,7 @@ export default function Post({ post }) {
         <div className="postBottom">
           <div className="postBottomLeft">
             <img
+              crossOrigin="anonymous"
               src={`${PF}like.png`}
               alt=""
               className="postLikeIcon"

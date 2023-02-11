@@ -6,16 +6,21 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Redirect,
+  Navigate
 } from "react-router-dom";
+import {useContext} from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
   return (
     <Router>
       <Routes>
-        <Route exact path="/"  element={<Home/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/profile/:username" element={<Profile/>} />
+        <Route exact path="/"  element={user ? <Home/> : <Signup/>} />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="/profile/:username" element={user ? <Navigate to="/" /> : <Signup/>} />
         <Route path="/signup" element={<Signup/>} />
       </Routes>
     </Router>

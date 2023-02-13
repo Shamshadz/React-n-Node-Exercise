@@ -30,7 +30,7 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                crossOrigin="anonymous"
+                // crossOrigin="anonymous"
                 className="profileCoverImg"
                 src={
                   user.coverProfile
@@ -40,7 +40,7 @@ export default function Profile() {
                 alt=""
               />
               <img
-                crossOrigin="anonymous"
+                // crossOrigin="anonymous"
                 className="profileUserImg"
                 src={
                   user.profilePicture

@@ -5,11 +5,38 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { Add, Remove } from "@mui/icons-material";
 
 export default function RightBar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [friends, setFriends] = useState([]);
+  const [followed, setFollowed] = useState(
+    currentUser.followings.includes(user?._id)
+  );
+
+  useEffect(()=>{
+    setFollowed(
+      currentUser.followings.includes(user?._id)
+    );
+  },[user])
+
+  const handleClick = async () => {
+    try {
+      if (followed) {
+        await axios.put(`/users/${user._id}/unfollow`, {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "UNFOLLOW", payload: user._id });
+      } else {
+        await axios.put(`/users/${user._id}/follow`, {
+          userId: currentUser._id,
+        });
+        dispatch({ type: "FOLLOW", payload: user._id });
+      }
+      setFollowed(!followed);
+    } catch (err) {}
+  };
 
   useEffect(() => {
     const getFriends = async () => {
@@ -46,6 +73,12 @@ export default function RightBar({ user }) {
   const ProfileRightbar = () => {
     return (
       <>
+        {user.username !== currentUser.username && (
+          <button className="rightbarFollowButton" onClick={handleClick}>
+            {followed ? "Unfollow" : "Follow"}
+            {followed ? <Remove /> : <Add />}
+          </button>
+        )}
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -76,7 +109,7 @@ export default function RightBar({ user }) {
             >
               <div className="rightbarFollowing">
                 <img
-                  crossOrigin="anonymous"
+                  // crossOrigin="anonymous"
                   src={
                     friend.profilePicture
                       ? PF + friend.profilePicture

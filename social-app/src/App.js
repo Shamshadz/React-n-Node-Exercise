@@ -2,6 +2,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Signup from "./pages/register/Signup";
+import Messenger from "./pages/messenger/Messenger";
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/"  element={user ? <Home/> : <Signup/>} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/profile/:username" element={<Profile/>} />
+        <Route path="/messenger" element={!user ? <Navigate to="/" /> : <Messenger/>} />
         <Route path="/signup" element={user ? <Navigate to="/" /> : <Signup/>} />
       </Routes>
     </Router>

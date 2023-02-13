@@ -53,7 +53,7 @@ export default function TopBar() {
           style={{ textDecoration: "none" }}
         >
           <img
-            crossOrigin="anonymous"
+            // crossOrigin="anonymous"
             src={
               user.profilePicture
                 ? PF + user.profilePicture

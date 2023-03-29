@@ -30,6 +30,15 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
         `/conversations/find/${currentId}/${user._id}`
       );
       setCurrentChat(res.data);
+      if (res.data == null) {
+        console.log("no chat before this");
+        const newConversation = {
+          senderId: currentId,
+          receiverId: user._id,
+        };
+        const res = await axios.post(`/conversations`, newConversation);
+        setCurrentChat(res.data);
+      }
     } catch (error) {
       console.log(error);
     }

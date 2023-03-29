@@ -26,7 +26,6 @@ router.get("/:userId", async (req, res) => {
 });
 
 // get conv include two userId
-
 router.get("/find/:firstUserId/:secondUserId", async (req, res) => {
   try {
     const conversation = await Conversation.findOne({

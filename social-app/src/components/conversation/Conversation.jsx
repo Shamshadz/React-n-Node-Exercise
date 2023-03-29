@@ -1,10 +1,39 @@
-import "./conversation.css"
+import "./conversation.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function conversation() {
+export default function Conversation({ conversation, currentUser }) {
+  const [user, setUser] = useState(null);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  useEffect(() => {
+    const friendId = conversation.members.find((m) => m !== currentUser._id);
+
+    const getUser = async () => {
+      try {
+        const res = await axios("/users?userId=" + friendId);
+
+        setUser(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, [currentUser, conversation]);
+
   return (
-    <div className="conversation">
-        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="" className="conversationImg" />
-        <span>joey tribani</span>
+    <div className="conversation" key={conversation._id}>
+      <img
+        className="conversationImg"
+        src={
+          user?.profilePicture
+            ? PF + user.profilePicture
+            : PF + "person/noAvatar.png"
+        }
+      />
+      <span className="conversationName">
+        {!user ? <h3>loading... </h3> : <>{user?.username}</>}
+      </span>
     </div>
-  )
+  );
 }

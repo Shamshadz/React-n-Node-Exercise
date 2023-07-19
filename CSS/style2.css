@@ -1,0 +1,27 @@
+#div1 {
+  height: 100px;
+  width: 100px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.887);
+  color: white;
+  height: 35px;
+}
+
+#logo {
+  text-decoration: none;
+  color: rgba(255, 170, 0, 0.934);
+  font-size: 20px;
+}
+
+nav a {
+  margin-right: 150px;
+}
+
+nav button {
+  background-color: rgba(255, 170, 0, 0.934);
+  color: white;
+}
